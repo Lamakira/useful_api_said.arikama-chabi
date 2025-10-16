@@ -16,9 +16,11 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     //to logout
-   Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 
-   //get all modules
-   Route::get('/modules', [ModuleController::class, 'index']);
-   Route::post('/modules/{module}/activate', [ModuleController::class, 'activate']);
+    //get all modules
+    Route::get('/modules', [ModuleController::class, 'index']);
+    Route::post('/modules/{module}/activate', [ModuleController::class, 'activate']);
+    Route::post('/modules/{module}/deactivate', [ModuleController::class, 'deactivate']);
+
 });

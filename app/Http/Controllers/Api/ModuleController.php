@@ -54,21 +54,49 @@ class ModuleController extends Controller
     {
         $moduleId = $module->id;
         $realModule = Module::findOrfail($moduleId);
-        if(!$realModule)
-        {
+        if (!$realModule) {
             return response()->json([], 400);
         }
 
         $userId = $request->user()->id;
 
-        UserModule::create([
-            "user_id" => $userId,
-            "module_id" => $moduleId,
-            "active" => true
-        ]);
+        UserModule::updateOrcreate(
+            [
+                "user_id" => $userId,
+                "module_id" => $moduleId
+            ],
+            [
+                "active" => true
+            ]
+        );
 
         return response()->json([
             'message' => "Module activated"
+        ]);
+    }
+
+    public function deactivate(Request $request, Module $module)
+    {
+        $moduleId = $module->id;
+        $realModule = Module::findOrfail($moduleId);
+        if (!$realModule) {
+            return response()->json([], 400);
+        }
+
+        $userId = $request->user()->id;
+
+        UserModule::updateOrcreate(
+            [
+                "user_id" => $userId,
+                "module_id" => $moduleId
+            ],
+            [
+                "active" => false
+            ]
+        );
+
+        return response()->json([
+            'message' => "Module deactivated"
         ]);
     }
 }
