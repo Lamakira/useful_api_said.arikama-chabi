@@ -51,4 +51,9 @@ class User extends Authenticatable
     public function user_modules() {
         return $this->hasMany(UserModule::class);
     }
+
+    public function short_links()
+    {
+        return $this->hasMany(ShortLink::class);
+    }
 }

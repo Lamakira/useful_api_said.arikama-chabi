@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ModuleController;
+use App\Http\Controllers\Api\ShortLinkController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +23,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/modules', [ModuleController::class, 'index']);
     Route::post('/modules/{module}/activate', [ModuleController::class, 'activate']);
     Route::post('/modules/{module}/deactivate', [ModuleController::class, 'deactivate']);
+
+    Route::middleware('check-module-active:1')->group(function () {
+       Route::post('/shorten', [ShortLinkController::class, 'shorten']);
+       Route::get('/s/{code}', [ShortLinkController::class, 'redirectUrl']);
+       Route::get('/links', [ShortLinkController::class, 'index']);
+       Route::delete('/links/{short_link}', [ShortLinkController::class, 'destroy']);
+    });
 
 });
