@@ -8,6 +8,7 @@ use App\Models\Wallet;
 use Illuminate\Http\Request;
 use App\Http\Requests\TransactionRequest;
 use Illuminate\Support\Facades\DB;
+use Throwable;
 
 class TransactionController extends Controller
 {
@@ -91,10 +92,8 @@ class TransactionController extends Controller
 
                 return response()->json($transaction, 201);
             });
-        } catch (e) {
-            return response()->json([
-                "message" => "Something went wrong"
-            ], 500);
+        } catch (Throwable $e) {
+            return response()->json(['error' => 'An error occurred: ' . $e->getMessage()], 500);
         }
 
         return response()->json([
