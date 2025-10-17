@@ -77,9 +77,9 @@ class TransactionController extends Controller
 
         try {
             DB::transaction(function () use ($sender_wallet_id, $receiver_wallet_id, $amount) {
-                DB::table('wallets')->where('user_id', $sender_wallet_id)->decrement('balance', $amount);
+                DB::table('wallets')->where('id', $sender_wallet_id)->decrement('balance', $amount);
 
-                DB::table('wallets')->where('user_id', $receiver_wallet_id)->increment('balance', $amount);
+                DB::table('wallets')->where('id', $receiver_wallet_id)->increment('balance', $amount);
 
                $transaction = DB::table('transactions')->insert([
                     'sender_id' => $sender_wallet_id,

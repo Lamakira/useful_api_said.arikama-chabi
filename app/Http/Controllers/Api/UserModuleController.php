@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserModule;
 use Illuminate\Http\Request;
 
 class UserModuleController extends Controller
@@ -45,5 +46,13 @@ class UserModuleController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+
+    public function getUserModulesActive(Request $request)
+    {
+        $userId = $request->user()->id;
+        $userModulesActive = UserModule::where('user_id', $userId)->where('active', true)->get();
+        return response()->json($userModulesActive);
     }
 }

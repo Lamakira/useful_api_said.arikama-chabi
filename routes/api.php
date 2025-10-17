@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ModuleController;
 use App\Http\Controllers\Api\ShortLinkController;
+use App\Http\Controllers\Api\UserModuleController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\TransactionController;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/modules', [ModuleController::class, 'index']);
     Route::post('/modules/{module}/activate', [ModuleController::class, 'activate']);
     Route::post('/modules/{module}/deactivate', [ModuleController::class, 'deactivate']);
+    Route::get('/modules/active', [UserModuleController::class, 'getUserModulesActive']);
 
     Route::middleware('check-module-active:1')->group(function () {
         Route::post('/shorten', [ShortLinkController::class, 'shorten']);
