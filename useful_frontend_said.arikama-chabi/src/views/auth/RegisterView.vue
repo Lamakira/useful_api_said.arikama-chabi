@@ -88,7 +88,12 @@ async function saveNewUser() {
         {{ authStore.loading ? 'In Progress' : 'Register new account' }}
       </button>
     </form>
-
+    <div class="mt-[3%] text-lg mb-[5%]">
+      <span>Already have an account ? </span>
+      <router-link to="/auth/login">
+        <span class="hover:underline cursor-pointer">Log in</span></router-link
+      >
+    </div>
   </div>
 </template>
 
